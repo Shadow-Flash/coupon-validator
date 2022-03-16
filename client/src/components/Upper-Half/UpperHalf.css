@@ -1,0 +1,8 @@
+.heading {
+    margin: 20px;
+}
+
+.upper-half-display {
+    display: flex;
+    flex-wrap: wrap;
+}

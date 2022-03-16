@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+}
+
+.dividing-border {
+  border: 10px solid black;
+}
+
+.upper-half {
+  height: 70%;
+}
+
+.lower-half {
+  height: 30%;
+}
