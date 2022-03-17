@@ -10,6 +10,14 @@ input {
     margin: 0 0 10px 2px;
 }
 
+.mid-size {
+    width: 5rem;
+}
+
+.large-size {
+    width: 12rem;
+}
+
 .submit-coupon-btn {
     border: 1px solid lightgreen;
     border-radius: 10px;

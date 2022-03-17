@@ -5,14 +5,14 @@ const initialState = {
     category: "",
     price: 0,
     cart: [],
-    coupons: [],
+    couponCount: 0,
     createMode: false,
 }
 
 const reducer = (state, action) => {
     if(state === undefined) state = initialState;
     console.log({state,action});
-    const {name,category,price,code,description,sd,ed,valueToBeDeducted,minAmt,type,maxPercentDiscount} = action;
+    const {name,category,price} = action;
     switch(action.type){
         case ADD_TO_CART:
             return {
@@ -22,7 +22,7 @@ const reducer = (state, action) => {
         case ADD_COUPON:
             return {
                 ...state,
-                coupon: [...state.coupon, {code,description,sd,ed,valueToBeDeducted,minAmt,type,maxPercentDiscount}]
+                couponCount: state.couponCount++
             }
         case SWITCH_TO_CREATE:
             return {
