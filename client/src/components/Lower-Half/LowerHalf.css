@@ -1,0 +1,25 @@
+.lower-container{
+    display: flex;
+    height: 100%;
+}
+
+.left-container, .right-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 20px;
+}
+
+ul, li {
+    margin: 0;
+}
+
+li {
+    margin-left: 3rem;
+    font-size: small;
+}
+
+.right-container {
+    display: inherit;
+    width: 50%;
+}

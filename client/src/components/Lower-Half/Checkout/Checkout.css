@@ -1,0 +1,10 @@
+
+.coupon-btn, .apply-btn {
+    border: 1px solid lightgreen;
+    border-radius: 10px;
+    background: lightgreen;
+    width: fit-content;
+    padding: 4px;
+    cursor: pointer;
+}
+

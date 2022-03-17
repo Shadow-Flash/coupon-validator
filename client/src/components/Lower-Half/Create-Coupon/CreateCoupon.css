@@ -1,0 +1,44 @@
+h1 {
+    margin: 0 0 10px 0;
+}
+
+select {
+    margin: 0 0 10px 2px;
+}
+
+input {
+    margin: 0 0 10px 2px;
+}
+
+.submit-coupon-btn {
+    border: 1px solid lightgreen;
+    border-radius: 10px;
+    background: lightgreen;
+    width: fit-content;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.submit-coupon-btn:hover {
+    border: 1px solid #98bf64;
+    background: #98bf64;
+}
+
+.back-btn {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    background: lightgray;
+    width: fit-content;
+    padding: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.back-btn {
+    border: 1px solid gray;
+    background: gray;
+}
+
+.buttons {
+    display: flex;
+}
