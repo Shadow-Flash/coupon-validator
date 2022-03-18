@@ -8,3 +8,14 @@
     cursor: pointer;
 }
 
+.after-applyBtn {
+    display: flex;
+}
+
+.p-error {
+    color: red;
+    font-size: small;
+    flex-wrap: wrap;
+    margin: 0 0 0 1rem;
+    display: flex;
+}

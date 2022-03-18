@@ -4,7 +4,7 @@ import dataContext from '../../../util/dataContext';
 import {ADD_TO_CART} from '../../../reducer/types';
 
 function CardTemplateComponent(props) {
-  const {name,category} = props;
+  const {name, category, price} = props;
   const {dispatch} = React.useContext(dataContext);
 
   function handleAddToCart(ItemAdded) {
@@ -22,8 +22,8 @@ function CardTemplateComponent(props) {
           <p className='category'>{category}</p>
         </div>
         <div className='right'>
-          <div className='price'>0</div>
-          <div className='atc-btn' onClick={() => handleAddToCart({name,category,price:10})}>Add to cart</div>
+          <div className='price'>{price}</div>
+          <div className='atc-btn' onClick={() => handleAddToCart({name,category,price})}>Add to cart</div>
         </div>
       </div>
     </div>

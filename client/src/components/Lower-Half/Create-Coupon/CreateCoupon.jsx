@@ -23,12 +23,14 @@ function CreateCouponComponent() {
                 headers: { 'Content-Type' : 'application/json'},
                 body: JSON.stringify(newCoupon)
             })
-            .then(result => {
-                result.json().then(res => {
-                    dispatch({type: ADD_COUPON});
-                    setCoupon(initState);
-                    console.log(res);
-                })
+            .then(async result => {
+                const data = await result.json();
+                if(!result.ok){
+                    const error = data.message;
+                    return Promise.reject(error);
+                }
+                dispatch({type: ADD_COUPON});
+                setCoupon(initState);
             })
             .catch(err => setServerError(err.message));
         })

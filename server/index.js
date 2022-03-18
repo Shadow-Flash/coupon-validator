@@ -6,6 +6,7 @@ const Coupon = require('./models/coupon');
 const port = process.env.PORT;
 const app = express();
 const cors = require('cors');
+const checkOnCouponData = require('./util/alterationsOnCoupon');
 
 mongoose.connect(process.env.URI, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
@@ -19,11 +20,15 @@ mongoose.connect(process.env.URI, {useNewUrlParser: true, useUnifiedTopology: tr
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+
 app.get('/coupon-codes',(req, res) => {
     console.log('--- All Coupon Codes Fetched Request');
     Coupon.find()
-    .then(val => res.send(val))
-    .catch(err => console.log(err));
+    .then(value => res.send(value))
+    .catch(error => {
+        res.status(404);
+        res.send(error);
+    });
 })
 
 app.post('/create-coupon',(req, res) => {
@@ -31,6 +36,24 @@ app.post('/create-coupon',(req, res) => {
     const coupon = new Coupon(req.body);
     coupon.save()
     .then(result => res.send(result))
-    .catch(err => res.send(err));
+    .catch(error => {
+        res.status(404);
+        res.send(error);
+    });
 })
 
+app.post('/redeem-coupon',(req, res) => {
+    console.log('--- Redeem Coupon Code');
+    const {couponCode, totalAmt} = req.body;
+    Coupon.findOne({code: couponCode})
+    .then(val => {
+        // console.log(val);
+        checkOnCouponData(val, totalAmt)
+        .then((value) => res.send(value))
+        .catch((error) => {
+            res.status(404);
+            res.send(error);
+        })
+    })
+    .catch(err => console.log(err));
+});

@@ -1,35 +1,43 @@
 const cardsContent = [
     {
-        "name": "Coca-Cola",
+        "name": "Silk Cloth",
         "category": "Soft",
+        "price": 1000
     },
     {
-        "name": "Pepsi",
+        "name": "Cardigan",
         "category": "Soft",
+        "price": 2000
     },
     {
-        "name": "Beer",
-        "category": "Alcoholic",
+        "name": "Corset",
+        "category": "Hard",
+        "price": 5000
     },
     {
-        "name": "Mixed Fruit Juice",
-        "category": "Juice",
+        "name": "Dungarees",
+        "category": "Hard",
+        "price": 8000
     },
     {
-        "name": "Wine",
-        "category": "Classic",
+        "name": "Saari",
+        "category": "Casual",
+        "price": 2550
     },
     {
-        "name": "Chocalate Shake",
-        "category": "Milk",
+        "name": "Jeans",
+        "category": "Hard",
+        "price": 1599
     },
     {
-        "name": "Ice Cream Shake",
-        "category": "Milk",
+        "name": "Shirt",
+        "category": "Casual",
+        "price": 399
     },
     {
-        "name": "Smoothie",
-        "category": "Milk",
+        "name": "Tops",
+        "category": "Casual",
+        "price": 201
     },
 ]
 
