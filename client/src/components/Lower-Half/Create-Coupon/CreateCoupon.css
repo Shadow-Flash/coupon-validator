@@ -10,12 +10,19 @@ input {
     margin: 0 0 10px 2px;
 }
 
+.error {
+    padding: 0;
+    margin: 0 0 0 7rem;
+    font-size: xx-small;
+    color: red;
+}
+
 .mid-size {
     width: 5rem;
 }
 
 .large-size {
-    width: 12rem;
+    width: 10rem;
 }
 
 .submit-coupon-btn {

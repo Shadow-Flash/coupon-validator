@@ -20,7 +20,7 @@ function ListOfCouponsComponents() {
         <h1>List of Coupons:</h1>
         <ul className='list-of-coupons'>
           {allCoupons.map((coupon,id) => {
-            return <li key={id} className='coupon'>{coupon.code}</li>
+            return <li key={id} className='coupon'>{coupon.code} <p className='coupon-desc'> -  {coupon.desc}</p></li>
           })}
         </ul>
     </div>
