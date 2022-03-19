@@ -10,7 +10,7 @@ function CheckoutComponent() {
 
     function handleRedeemCoupon() {
       setServerError('');
-      fetch('http://localhost:2030/redeem-coupon',{
+      fetch('/redeem-coupon',{
         method: 'POST',
         headers: { 'Content-Type' : 'application/json'},
         body: JSON.stringify({couponCode,totalAmt})

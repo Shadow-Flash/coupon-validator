@@ -6,7 +6,7 @@ import {cardsContent} from './Card-Template/CardContent';
 function UpperHalfComponent() {
   return (
     <>
-    <h1 className='heading'>Buy Drinks:</h1>
+    <h1 className='heading'>Buy Clothes:</h1>
     <div className='upper-half-display'>
         {cardsContent.map((cardVal,id) => {
             return <CardTemplate key={id} name={cardVal.name} category={cardVal.category} price={cardVal.price}/>

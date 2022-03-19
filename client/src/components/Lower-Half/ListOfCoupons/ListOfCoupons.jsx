@@ -9,7 +9,7 @@ function ListOfCouponsComponents() {
   const [showCoupon, setShowCoupon] = React.useState(false);
 
   React.useEffect(() => {
-    fetch('http://localhost:2030/coupon-codes')
+    fetch('/coupon-codes')
     .then(async (val) => {
       let coupons = await val.json();
       if(!val.ok){

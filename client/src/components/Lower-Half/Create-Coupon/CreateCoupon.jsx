@@ -18,7 +18,7 @@ function CreateCouponComponent() {
             Object.entries(coupon).forEach(values => {
                 newCoupon[values[0]] = values[1].value;
             })
-            fetch('http://localhost:2030/create-coupon',{
+            fetch('/create-coupon',{
                 method: 'POST',
                 headers: { 'Content-Type' : 'application/json'},
                 body: JSON.stringify(newCoupon)
@@ -93,7 +93,7 @@ function CreateCouponComponent() {
         <h1>Create Coupon:</h1>
         <form onSubmit={(e) => handleSubmitCouponBtn(e)}>
             <label htmlFor='typeOfCode'>
-                Type of Coupon:
+                Type of Discount:
             </label>
             <select className='mid-size' name='typeOfCode' value={coupon.typeOfCode.value} onChange={handleInputChange}>
                 <option value='flat'>Flat</option>
@@ -114,7 +114,7 @@ function CreateCouponComponent() {
             </label>
             <br></br>
             {coupon.typeOfCode.value === 'upto' ? <label htmlFor='percentDeduct'>
-                Percent discount to deduct:
+                How much percent discount:
                 <input className='mid-size' name='percentDeduct' type='number' value={coupon.percentDeduct.value} onChange={handleInputChange}/>
                 {coupon.percentDeduct.error ? <p className='error'>{coupon.percentDeduct.error}</p> : null}
             </label> :
@@ -137,13 +137,13 @@ function CreateCouponComponent() {
             </label>
             <br></br>
             <label htmlFor='minAmt'>
-                Minimum amount:
+                Minimum amount to apply:
                 <input className='mid-size' name='minAmt' type='number' value={coupon.minAmt.value} onChange={handleInputChange}/>
                 {coupon.minAmt.error ? <p className='error'>{coupon.minAmt.error}</p> : null}
             </label>
             <br></br>
            {coupon.typeOfCode.value === 'upto' ? <label htmlFor='maxPercent'>
-                Maximum Percentage Discount:
+                Maximum amount to be discounted:
                 <input className='mid-size' name='maxPercent' type='number' value={coupon.maxPercent.value} onChange={handleInputChange}/>
                 {coupon.maxPercent.error ? <p className='error'>{coupon.maxPercent.error}</p> : null}
             </label> : null}
