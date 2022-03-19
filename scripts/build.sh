@@ -43,7 +43,7 @@ do
                 exit 0
             done
 
-            until cd ../server && npm run prod
+            until cd ../server && npm run start
             do
                 echo "production step 3 stop somehow"
                 exit 0
