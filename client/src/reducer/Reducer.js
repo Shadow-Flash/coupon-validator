@@ -1,4 +1,4 @@
-import { ADD_TO_CART, ADD_COUPON, SWITCH_TO_CREATE } from "./types";
+import { ADD_TO_CART, ADD_COUPON, SWITCH_TO_CREATE, SET_SERVER_ERROR } from "./types";
 
 const initialState = {
     name: "",
@@ -7,11 +7,11 @@ const initialState = {
     cart: [],
     couponCount: 0,
     createMode: false,
+    serverError: ""
 }
 
 const reducer = (state, action) => {
     if(state === undefined) state = initialState;
-    console.log({state,action});
     const {name,category,price} = action;
     switch(action.type){
         case ADD_TO_CART:
@@ -28,6 +28,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 createMode: action.switchVal
+            }
+        case SET_SERVER_ERROR:
+            return {
+                ...state,
+                serverError: action.serverError
             }
         default:
             return state;

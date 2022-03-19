@@ -10,11 +10,16 @@ input {
     margin: 0 0 10px 2px;
 }
 
-.error {
+.error, .server-error {
     padding: 0;
     margin: 0 0 0 7rem;
     font-size: xx-small;
     color: red;
+}
+
+.server-error {
+    font-size: small;
+    margin: 0;
 }
 
 .mid-size {
@@ -49,7 +54,7 @@ input {
     margin-left: 10px;
 }
 
-.back-btn {
+.back-btn:hover {
     border: 1px solid gray;
     background: gray;
 }

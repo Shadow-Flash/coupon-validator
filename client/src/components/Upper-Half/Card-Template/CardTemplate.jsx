@@ -1,16 +1,21 @@
 import React from 'react';
 import './Cards.css';
 import dataContext from '../../../util/dataContext';
-import {ADD_TO_CART} from '../../../reducer/types';
+import {ADD_TO_CART, SET_SERVER_ERROR} from '../../../reducer/types';
 
 function CardTemplateComponent(props) {
   const {name, category, price} = props;
   const {dispatch} = React.useContext(dataContext);
 
   function handleAddToCart(ItemAdded) {
+    let serverError = "";
     dispatch({
       type: ADD_TO_CART,
       ...ItemAdded
+    });
+    dispatch({
+      type: SET_SERVER_ERROR,
+      serverError
     });
   }
 

@@ -13,3 +13,18 @@
     font-size: x-small;
     color: green;
 }
+
+.hideAndShow-btn {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    background: lightgray;
+    width: fit-content;
+    padding: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.hideAndShow-btn:hover {
+    border: 1px solid gray;
+    background: gray;
+}

@@ -1,5 +1,5 @@
 function foundCoupon(data) {
-    if(Object.keys(data).length) return true;
+    if(data !== null) return true;
     else return false;
 }
 
@@ -9,40 +9,48 @@ function calculateUptoDiscount(totalAmt, perDect, maxPerPrice) {
     else return maxPerPrice;
 }
 
+function getExactDate(mentionDate) {
+    let date = new Date(mentionDate).getFullYear()+'-'+0+(new Date(mentionDate).getMonth()+1)+'-'+new Date(mentionDate).getDate();
+    return date;
+}
+
+function isExpired(endDate) {
+    let currentDate = getExactDate(Date.now());
+    endDate = getExactDate(endDate);
+    return currentDate > endDate;
+}
+
 function checkOnCouponData(couponData, totalAmt) {
     return new Promise((resolve, reject) => {
         if(foundCoupon(couponData)){
-            console.log("1");
-            let {typeOfCode, minAmt, priceDeduct, percentDeduct, maxPercent} = couponData;
-            if(typeOfCode === 'flat'){
-                console.log("2");
-                if(minAmt < totalAmt){
-                    console.log("3");
-                    resolve({data: priceDeduct});
+            let {typeOfCode, minAmt, priceDeduct, percentDeduct, maxPercent, ed} = couponData;
+            if(!isExpired(ed)){
+                if(typeOfCode === 'flat'){
+                    if(minAmt <= totalAmt){
+                        resolve({data: priceDeduct});
+                    }
+                    else {
+                        let amt = minAmt - totalAmt;
+                        reject({message: `Add ${amt} more amount to apply this coupon.`})
+                    }
                 }
                 else {
-                    console.log("4");
-                    let amt = minAmt - totalAmt;
-                    reject({message: `Add this much more amount ${amt} to apply this coupon.`})
+                    if(minAmt <= totalAmt){
+                        let finalPrice = calculateUptoDiscount(totalAmt, percentDeduct, maxPercent);
+                        resolve({data: finalPrice});
+                    }
+                    else {
+                        let amt = minAmt - totalAmt;
+                        reject({message: `Add ${amt} more amount to apply this coupon.`})
+                    }
                 }
             }
             else {
-                console.log("5");
-                if(minAmt < totalAmt){
-                    console.log("6");
-                    let finalPrice = calculateUptoDiscount(totalAmt, percentDeduct, maxPercent);
-                    resolve({data: finalPrice});
-                }
-                else {
-                    console.log("7");
-                    let amt = minAmt - totalAmt;
-                    reject({message: `Add this much more amount ${amt} to apply this coupon.`})
-                }
+                reject({message: `Coupon ${couponData.code} is expired !!`});
             }
         }
         else {
-            console.log("8");
-            reject({message: "No Coupon found !!"});
+            reject({message: `No Coupon found !!`});
         }
     })
 }

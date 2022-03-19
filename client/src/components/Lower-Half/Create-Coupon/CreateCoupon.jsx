@@ -15,7 +15,7 @@ function CreateCouponComponent() {
         e.preventDefault();
         sendTheRequest().then(() => {
             let newCoupon = {};
-            Object.entries(coupon).map(values => {
+            Object.entries(coupon).forEach(values => {
                 newCoupon[values[0]] = values[1].value;
             })
             fetch('http://localhost:2030/create-coupon',{
@@ -27,12 +27,13 @@ function CreateCouponComponent() {
                 const data = await result.json();
                 if(!result.ok){
                     const error = data.message;
+                    console.log(error);
                     return Promise.reject(error);
                 }
                 dispatch({type: ADD_COUPON});
                 setCoupon(initState);
             })
-            .catch(err => setServerError(err.message));
+            .catch(err => setServerError(err));
         })
         .catch(() => {
             console.log("CANCELLED!!");
@@ -51,12 +52,7 @@ function CreateCouponComponent() {
 
     function validateFields() {
         Object.entries(coupon).forEach((value) => {
-            if(value[0] === 'ed'){
-                validateFormInput(errors, value, coupon.typeOfCode.value, coupon.sd.value);
-            }
-            else {
-                validateFormInput(errors, value, coupon.typeOfCode.value);
-            }
+            validateFormInput(errors, value, coupon.typeOfCode.value);
         })
         Object.keys(errors).forEach(val => {
             updateStateError(val,errors[val]);
@@ -155,7 +151,7 @@ function CreateCouponComponent() {
                 <button className='submit-coupon-btn'>Submit</button>
                 <div className='back-btn' onClick={() => handleBackBtn(false)}>Back</div>
             </div>
-            {serverError ? <p>{serverError}</p> : null}
+            {serverError ? <p className='server-error'>{serverError}</p> : null}
         </form>
     </div>
   )

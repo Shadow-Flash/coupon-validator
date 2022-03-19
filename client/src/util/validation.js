@@ -1,7 +1,6 @@
 export function validateFormInput(errors, couponData, type, date = null) {
     let name = couponData[0];
     let value = couponData[1].value;
-    let currentDate = new Date(Date.now()).getFullYear()+'-'+0+(new Date(Date.now()).getMonth()+1)+'-'+new Date(Date.now()).getDate();
     const codeRegex = RegExp(/^[a-zA-Z0-9]*$/);
     switch(name) {
         case 'typeOfCode':
@@ -32,11 +31,11 @@ export function validateFormInput(errors, couponData, type, date = null) {
             break;
 
         case 'sd':
-            errors[name] = value === "" ? "Start date is required" : value < currentDate ? "Start date cannot be a past time" : "";
+            errors[name] = value === "" ? "Start date is required" : "";
             break;
 
         case 'ed':
-            errors[name] = value === "" ? "End date is required" : value <= date ? "End date cannot be less than or equal to Start date" : "";
+            errors[name] = value === "" ? "End date is required" : "";
             break;
 
         case 'minAmt':
@@ -50,5 +49,6 @@ export function validateFormInput(errors, couponData, type, date = null) {
         case 'maxPercent':
             errors[name] = (value === "" || value < 500) && type === 'upto' ? "Maximum discount amount should be greater than 500" : "";
             break;
+        default: break;
     }
 }

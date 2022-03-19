@@ -7,6 +7,7 @@ const port = process.env.PORT;
 const app = express();
 const cors = require('cors');
 const checkOnCouponData = require('./util/alterationsOnCoupon');
+const path = require('path');
 
 mongoose.connect(process.env.URI, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
@@ -20,6 +21,7 @@ mongoose.connect(process.env.URI, {useNewUrlParser: true, useUnifiedTopology: tr
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname,'./public')));
 
 app.get('/coupon-codes',(req, res) => {
     console.log('--- All Coupon Codes Fetched Request');
@@ -37,8 +39,12 @@ app.post('/create-coupon',(req, res) => {
     coupon.save()
     .then(result => res.send(result))
     .catch(error => {
-        res.status(404);
-        res.send(error);
+        let message;
+        if(error.code === 11000) {
+            message = "Coupon code already present in database.";
+        }
+        res.status(403);
+        error.code === 11000 ? res.send({message}) : res.send(error);
     });
 })
 
@@ -47,13 +53,15 @@ app.post('/redeem-coupon',(req, res) => {
     const {couponCode, totalAmt} = req.body;
     Coupon.findOne({code: couponCode})
     .then(val => {
-        // console.log(val);
         checkOnCouponData(val, totalAmt)
         .then((value) => res.send(value))
         .catch((error) => {
-            res.status(404);
+            res.status(403);
             res.send(error);
         })
     })
-    .catch(err => console.log(err));
+    .catch(error => {
+        res.status(403);
+        res.send(error);
+    });
 });

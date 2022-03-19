@@ -1,15 +1,15 @@
 import React from 'react';
 import './Checkout.css';
 import dataContext from '../../../util/dataContext';
-import {SWITCH_TO_CREATE} from '../../../reducer/types';
+import {SWITCH_TO_CREATE, SET_SERVER_ERROR} from '../../../reducer/types';
 
 function CheckoutComponent() {
     const {state, dispatch} = React.useContext(dataContext);
     const [totalAmt, setTotalAmt] = React.useState(0);
     const [couponCode, setCouponCode] = React.useState('');
-    const [serverErr, setServerErr] = React.useState('');
 
     function handleRedeemCoupon() {
+      setServerError('');
       fetch('http://localhost:2030/redeem-coupon',{
         method: 'POST',
         headers: { 'Content-Type' : 'application/json'},
@@ -17,13 +17,17 @@ function CheckoutComponent() {
       })
       .then(async (result) => {
         const data = await result.json();
+        setCouponCode('');
         if(!result.ok){
           const error = data.message;
           return Promise.reject(error);
         }
+        else {
+          setTotalAmt(totalAmt - data.data);
+        }
       })
       .catch((error) => {
-        setServerErr(error);
+        setServerError(error);
       });
     }
 
@@ -36,7 +40,7 @@ function CheckoutComponent() {
         }
         setTotalAmt(total);
       })();
-    },[state]);
+    },[state.cart]);
 
     function handleCouponCode(e) {
       setCouponCode(e.target.value);
@@ -49,6 +53,13 @@ function CheckoutComponent() {
         })
     }
 
+    function setServerError(serverError) {
+        dispatch({
+            type: SET_SERVER_ERROR,
+            serverError
+        })
+    }
+
   return (
     <div>
         <h1>Checkout:</h1>
@@ -56,9 +67,9 @@ function CheckoutComponent() {
         <label htmlFor='couponCode'>Redeem Coupon: <input name='couponCode' type='text' value={couponCode} onChange={handleCouponCode} /> </label>
         <div className='after-applyBtn'>
           <div className='apply-btn' onClick={() => {handleRedeemCoupon()}}>Apply</div>
-          <p className='p-error'>{serverErr}</p>
+          <p className='p-error'>{state.serverError}</p>
         </div>
-        <p>Total Amount: <b>&#8377;{state.cart.length ? totalAmt : 0}</b></p>
+        <p>Total Amount: <b>&#8377;{totalAmt ? totalAmt : 0}</b></p>
         <div className='coupon-btn' onClick={() => handleCreateCouponBtn(true)}>Create Coupon</div>
     </div>
   )
